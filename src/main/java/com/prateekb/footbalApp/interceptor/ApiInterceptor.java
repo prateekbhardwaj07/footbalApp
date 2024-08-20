@@ -14,10 +14,17 @@ import java.util.Iterator;
 @Component
 public class ApiInterceptor implements HandlerInterceptor {
 
-    @Value("${token}")
-    private String authToken;
+    String authToken;
+
+    public ApiInterceptor(){}
+    public ApiInterceptor(String token){
+        this.authToken = token;
+    }
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        if(request.getHeader("Authorization") == null)
+            throw new ApplicationException("Authorization Header Not Present", "UNAUTHORIZED_ACCESS", 401);
         Enumeration<String> headerNames = request.getHeaderNames();
         while(headerNames.hasMoreElements()){
             String header = headerNames.nextElement();

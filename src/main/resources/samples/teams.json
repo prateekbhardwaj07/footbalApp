@@ -1,0 +1,12 @@
+{
+  "details":
+[
+  {
+    "teamId": 73,
+    "teamName": "Atletico Madrid",
+    "leagueId": 300,
+    "countryId": 6,
+    "countryName": "Spain",
+    "standingURI": "/get-standings/300/73"
+  }
+]}

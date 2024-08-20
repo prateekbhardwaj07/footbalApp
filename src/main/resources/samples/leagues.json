@@ -1,0 +1,12 @@
+{
+  "details":
+  [
+    {
+      "leagueId": 300,
+      "leagueName": "Copa del Rey",
+      "countryId": 6,
+      "countryName": "Spain",
+      "teamsURI": "/get-teams/6/300"
+    }
+  ]
+}

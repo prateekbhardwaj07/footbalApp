@@ -14,9 +14,14 @@ import com.prateekb.footbalApp.models.response.CountryResponse;
 import com.prateekb.footbalApp.models.response.LeagueResponse;
 import com.prateekb.footbalApp.models.response.StandingResponse;
 import com.prateekb.footbalApp.models.response.TeamResponse;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ResourceLoader;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ResourceUtils;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
@@ -40,7 +45,7 @@ public class FootBalAppService {
                     });
             countryResponse = configUtil.adaptCountryResponse(countries);
         } catch (Exception ex) {
-            throw new ApplicationException("Country Response Not Available","BAD_REQUEST",400);
+            throw new ApplicationException("Country Response Not Available", "BAD_REQUEST", 400);
         }
         return countryResponse;
     }
@@ -56,7 +61,7 @@ public class FootBalAppService {
                     });
             leagueResponse = configUtil.adaptLeagueResponse(leagues);
         } catch (Exception ex) {
-            throw new ApplicationException("Leagues Response Not Available","BAD_REQUEST",400);
+            throw new ApplicationException("Leagues Response Not Available", "BAD_REQUEST", 400);
         }
         return leagueResponse;
     }
@@ -72,7 +77,7 @@ public class FootBalAppService {
                     });
             teamResponse = configUtil.adaptTeamResponse(teams, countryId, leagueId);
         } catch (Exception ex) {
-            throw new ApplicationException("Teams Response Not Available","BAD_REQUEST",400);
+            throw new ApplicationException("Teams Response Not Available", "BAD_REQUEST", 400);
         }
         return teamResponse;
     }
@@ -88,7 +93,7 @@ public class FootBalAppService {
                     });
             standingResponse = configUtil.adaptStandingResponse(standings, leagueId, teamId);
         } catch (Exception ex) {
-            throw new ApplicationException("Standings Response Not Available","BAD_REQUEST",400);
+            throw new ApplicationException("Standings Response Not Available", "BAD_REQUEST", 400);
         }
         return standingResponse;
     }

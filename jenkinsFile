@@ -1,0 +1,57 @@
+pipeline {
+    agent any
+    environment {
+        imageName = "footballApp"
+        imageTag = "latest"
+    }
+    tools {
+        jdk 'JDK8'
+        maven 'maven3'
+    }
+    stages {
+        stage('SCM') {
+            steps {
+                echo 'Git Repository Pull'
+                git branch: 'main', changelog: false, credentialsId: 'github-creds', poll: false, url: 'https://github.com/prateekbhardwaj07/footbalApi.git'
+            }
+        }
+        stage('Compile') {
+            steps {
+                echo 'Compiling...'
+                sh 'mvn clean compile'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Testing...'
+                sh 'mvn clean test'
+            }
+        }
+        stage('codeAnalysis') {
+            withSonarQubeEnv(installationName: 'sonar-scanner') {
+                sh './mvnw clean org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.0.2155:sonar'
+            }
+        }
+        stage('Docker Build') {
+            steps {
+                script {
+                        docker.build("${imageName}:${imageTag}").inside {
+                            sh 'echo "Docker image built successfully."'
+                    }
+                }
+            }
+        }
+        stage('Run Docker Container'){
+            steps {
+                script {
+                    // stop and remove any existing container
+                    sh "docker stop ${imageName} || true"
+                    sh "docker rm ${imageName} || true"
+
+                    // Run new container
+                    docker.image("${imageName}:${imageTag}").run('--d --name footbal-container -p 8080:8080')
+                }
+            }
+        }
+    }
+}
