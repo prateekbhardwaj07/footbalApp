@@ -12,7 +12,7 @@ pipeline {
         stage('SCM') {
             steps {
                 echo 'Git Repository Pull'
-                git branch: 'main', changelog: false, credentialsId: 'github-creds', poll: false, url: 'https://github.com/prateekbhardwaj07/footbalApi.git'
+                git branch: 'main', changelog: false, credentialsId: 'github-creds', poll: false, url: 'https://github.com/prateekbhardwaj07/footbalApp.git'
             }
         }
         stage('Compile') {
