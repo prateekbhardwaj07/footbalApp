@@ -5,7 +5,7 @@ pipeline {
         imageTag = "latest"
     }
     tools {
-        jdk 'JDK8'
+        jdk 'JDK11'
         maven 'Maven3'
     }
     stages {
