@@ -51,7 +51,7 @@ pipeline {
                     sh "docker rm ${imageName} || true"
 
                     // Run new container
-                    docker.image("${imageName}:${imageTag}").run('--d --name footbal-container -p 8080:8080')
+                    docker.image("${imageName}:${imageTag}").run('-d --name footbal-container -p 8080:8080')
                 }
             }
         }
