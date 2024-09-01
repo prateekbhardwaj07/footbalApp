@@ -23,8 +23,10 @@ pipeline {
         }
         stage('Test') {
             steps {
-                echo 'Testing...'
-                sh 'mvn clean test'
+                timeout(time: 1, unit: 'MINUTES') {
+                    echo 'Testing...'
+                    sh 'mvn clean test'
+                }
             }
         }
         stage('codeAnalysis') {
