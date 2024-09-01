@@ -21,6 +21,12 @@ pipeline {
                 sh 'mvn clean compile'
             }
         }
+        stage('Package') {
+            steps {
+                echo 'Package With SkipTest'
+                sh 'mvn clean -DskipTests=true package'
+            }
+        }
         stage('codeAnalysis') {
             steps {
                 withSonarQubeEnv(installationName: 'sonar-scanner') {
