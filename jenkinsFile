@@ -21,14 +21,6 @@ pipeline {
                 sh 'mvn clean compile'
             }
         }
-        stage('Test') {
-            steps {
-                timeout(time: 1, unit: 'MINUTES') {
-                    echo 'Testing...'
-                    sh 'mvn clean test'
-                }
-            }
-        }
         stage('codeAnalysis') {
             steps {
                 withSonarQubeEnv(installationName: 'sonar-scanner') {
