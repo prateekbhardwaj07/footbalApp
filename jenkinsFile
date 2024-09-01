@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        imageName = "footballApp"
+        imageName = "footballapp"
         imageTag = "latest"
     }
     tools {
